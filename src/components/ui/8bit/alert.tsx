@@ -1,6 +1,5 @@
 import * as React from "react"
 import { Press_Start_2P } from "next/font/google"
-import { type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const pressStart = Press_Start_2P({
