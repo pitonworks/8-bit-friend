@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Press_Start_2P } from "next/font/google"
-import { cva, type VariantProps } from "class-variance-authority"
+import { type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const pressStart = Press_Start_2P({
@@ -8,36 +8,22 @@ const pressStart = Press_Start_2P({
   subsets: ["latin"],
 })
 
-const alertVariants = cva("", {
-  variants: {
-    font: {
-      normal: "",
-      retro: pressStart.className,
-    },
-    variant: {
-      default: "bg-card text-card-foreground",
-      destructive:
-        "text-destructive bg-card [&>svg]:text-current *:data-[slot=alert-description]:text-destructive/90",
-    },
-  },
-  defaultVariants: {
-    variant: "default",
-  },
-})
-
 export interface BitAlertProps
-  extends React.ComponentProps<"div">,
-    VariantProps<typeof alertVariants> {}
+  extends React.ComponentProps<"div"> {
+  font?: 'normal' | 'retro';
+  variant?: 'default' | 'destructive';
+}
 
 function Alert({ children, ...props }: BitAlertProps) {
-  const { variant, className, font, ...rest } = props
+  const { variant = 'default', className, font, ...rest } = props
 
   return (
     <div className={cn("relative", className)}>
       <div
         {...rest}
         className={cn(
-          "relative rounded-none border-none bg-black text-[#f89621] p-4",
+          "relative rounded-none border-none p-4",
+          variant === 'default' ? 'bg-black text-[#f89621]' : 'bg-black text-red-500',
           font !== "normal" && pressStart.className,
           className
         )}
